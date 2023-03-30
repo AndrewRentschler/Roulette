@@ -1,0 +1,79 @@
+
+body{
+  background-color: green;
+  /* display: grid; */
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(2, [col] 90px);
+  background-color: whitesmoke;
+  width: fit-content;
+  padding: 1px;
+}
+#numbers {
+  display: grid;
+  width: fit-content;
+
+}
+
+.num-row > div {
+  background-color: green;
+  color: whitesmoke;
+  /* border-color: whitesmoke;
+  border-style: inset;
+  border-width: 2px; */
+  text-align: center;
+}
+.num-section {
+  display: grid;
+}
+.num-row {
+  display: grid;
+  grid-template-columns: repeat(3, [col] 30px);
+  grid-template-rows: 30px;
+}
+#zeroes div{
+  grid-template-columns: repeat(2, [col] 45px);
+}
+#outside-bets {
+  display: grid;
+  grid-template-columns: repeat(2, [col] 45px);
+}
+.column {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: grid;
+  background-color: green;
+}
+.column div {
+  color: whitesmoke;
+  /* border-color: whitesmoke;
+  border-style:inset;
+  border-width: 1px; */
+  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+#column-A {
+  grid-template-rows: repeat(6, [row] 60px);
+}
+#column-B {
+  grid-template-rows: repeat(3, [row] 120px);
+}
+
+@keyframes Rotate
+  {from { transform: rotate(0deg) }
+  to { transform: rotate(720deg) }
+}
+
+img {
+  width: 240px;
+  /* transform: rotate(1024deg); */
+  animation: Rotate 7s linear;
+  position: relative;
+  animation-play-state: paused;
+}
+#G {
+  font-size: 65%;
+}
