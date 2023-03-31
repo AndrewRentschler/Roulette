@@ -10,6 +10,12 @@ Pseudocode
 //setup
 wheelnums = ["0","00","1",..."36"]
 rednums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
+betSqrs = Array holding all the BetSqr obj (this array is referenced by the bet obj)
+
+Board
+>Grid displaying...
+>>wheel
+>>All of the nums and outside bets layout out
 
 Player(obj)
 >has a balance of chips initialized to them
@@ -21,7 +27,7 @@ Player(obj)
 >methods for modifying/checking balance
 
 
-BetSqrs(obj) for each of the numbers and outsideBets represented on the board
+BetSqr(obj) for each of the numbers and outsideBets represented on the board
 >has array of wheelnums that make it a winner
 >has a color
 >has a payout (payout per 1 chip bet)

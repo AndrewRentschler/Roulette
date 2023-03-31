@@ -3,18 +3,28 @@ console.log("...init")
 
 // ---- Variables ----
 const spins = []
-const players = []
 const wheelNums = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 const wheel = document.getElementById('wheel')
 const spinBtn = document.querySelector('button')
-let bettingClosed = true
+let bettingClosed = false
 const betSqs = []
 let outsideBets = document.getElementsByClassName("outsideBet")
 const redNums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
+const board = document.getElementById('board')
+let boardNums = document.getElementById('numbers')
+
+
 
 // ---- Event Listeners
 spinBtn.addEventListener('click',function(evt){
   spins.push(new Spin())
+})
+board.addEventListener('click',function(evt){
+  // console.log(evt.target)
+  handleBoardClick(evt.target)
+})
+wheel.addEventListener('click',function(evt){
+  // alert("Don't Touch the Wheel")
 })
 
 // ---- Classes ----
@@ -37,54 +47,7 @@ spinBtn.addEventListener('click',function(evt){
 //     console.log("Create Bet Sqs",betSqs)
 //   }
 // }
-class Bet {
-  constructor(playerID, betSq, amount){
-    this.playerID = playerID
-    this.betSq = betSq
-    this.amount = amount
-  }
-  checkAmount(){
-    //check if the amount is more than player balance
-  }
-}
-class Spin {
-  constructor(evt){
-    this.evt = evt
-    this.bets = []
-    this.winNum = null
-    this.spin()
-    this.winBetSq = null
-  }
-  spin() {
-    console.log("Spinning...")
-    let winNum = Math.floor(Math.random() * wheelNums.length)
-    console.log("Spin Winning Num", wheelNums[winNum].toString())
-    // wheel.animation-play-state[play]
-    //need a rand num function
-    //need to run animation
-    //need to close bets & collect them
-    this.closeBets()
-    //check WinningNum vs the bets
-    this.checkBets()
-    //-Payout bets and update balances
-    //Reset board
-  }
-  closeBets(){
-    console.log("...Closing Bets")
-    bettingClosed = true
-    players.forEach((player)=>this.bets.push(player.bets))
-    console.log(this.bets)
-  }
-  checkBets(){
-    console.log("checkbets")
-    // this.bets.forEach((playerBets)=>{
-    //   playerBets.forEach(bet => {
-        
-    //   });
-    // })
-  }
 
-}
 // class Bet {
 //   constructor(playerID, betSq, amount){
 //     this.playerID = playerID
@@ -93,26 +56,27 @@ class Spin {
 //   }
 // }
 class Player {
-  constructor(name, isUser, balance){
+  constructor(name, balance){
     this.name = name
-    this.isUser = isUser
     this.balance = balance
-    this.avatar = null
+    // this.avatar = null
     this.bets = []
   }
+  decBalance(amt){amt>this.balance?this.balance-=amt:null}
+  addBalance(amt){this.balance += amt}
+  ckBalance(){return this.balance}
 }
+
 class BetSq {
-  constructor(text, pays){
+  constructor(text, pays, winSqs){
     this.text = text
     this.pays = pays
-  }
-}
-class NumberBetSq extends BetSq{
-  constructor(text, pays, number){
-    super(text,pays)
+    this.winSqs = winSqs
     this.color = null
-    this.number = number
     this.setColor()
+  }
+  checkWinner(winNum){
+    return this.winSqs.some((winSq)=>winSq == winNum)
   }
   setColor() {
     if (this.text === "0" || this.text === "00" ){
@@ -124,52 +88,117 @@ class NumberBetSq extends BetSq{
     }
   }
 }
-class OutsideBetsq extends BetSq{
-  constructor(text, pays, winSqs){
-    super(text, pays)
-    this.winSqs = winSqs
+class Bet {
+  constructor(betSq, amount){
+    this.betSq = betSq
+    this.amount = amount
+    this.winner = false
+    console.log(`New Bet! ${betSq.text} for ${amount}`)
+    this.takeBet(amount)
+    //update player balance
+    //place chip art on board
+    //display the bet on screen
+  }
+  takeBet(amt){
+    player.balance -= amt
   }
 }
+class Spin {
+  constructor(evt){
+    this.evt = evt
+    this.bets = []
+    this.winNum = null
+    this.winBetSq = null
+    this.spin()
 
+  }
+  spin() {
+    console.log("Spinning...")
+    let winNum = Math.floor(Math.random() * wheelNums.length)
+    this.winNum = 1
+    console.log("Spin Winning Num", wheelNums[winNum].toString())
+    // wheel.animation-play-state[play]
+    //need a rand num function
+    //need to run animation
+    //need to close bets & collect them
+    this.closeBets()
+    //check WinningNum vs the bets
+    this.checkBets()
+    //-Payout bets and update balances
+    this.render()
+    bettingClosed = false
+    //Reset board
+  }
+  closeBets(){
+    console.log("...Closing Bets")
+    bettingClosed = true
+    player.bets.forEach((bet)=>this.bets.push(bet))
+    // console.log(this.bets)
+  }
+  checkBets(){
+    console.log("checkbets")
+    // console.log(this.bets)
+    this.bets.forEach(bet=>{
+      // console.log(bet.betSq.text)
+      if (bet.betSq.checkWinner(this.winNum)){
+        console.log(`Winner! Pays ${bet.betSq.pays*bet.amount}`)
+        // console.dir(bet.betSq)
+      }
+    })
+
+  }
+  render(){
+    // console.log(typeof this.bets[0])
+  }
+}
 function createBetSqs() {
   let winNums = []
   for (let num in wheelNums){
-    console.log(typeof wheelNums[num])
+    // console.log(typeof wheelNums[num])
     betSqs.push(
-      new NumberBetSq(
+      new BetSq(
         wheelNums[num].toString(),
         35,
-        wheelNums[num].toString()
+        [wheelNums[num].toString()]
       )
     )
   }
   // console.log(document.getElementsByClassName("column"))
   winNums = []
   for(i=1;i<19;i++){winNums.push(i)}
-  betSqs.push(new OutsideBetsq("1 to 18", 1, winNums))
+  betSqs.push(new BetSq("1 to 18", 1, winNums))
   winNums = []
   for(i=19;i<37;i++){winNums.push(i)}
-  betSqs.push(new OutsideBetsq("19 to 36", 1, winNums))
+  betSqs.push(new BetSq("19 to 36", 1, winNums))
   winNums = []
   for(i=1;i<13;i++){winNums.push(i)}
-  betSqs.push(new OutsideBetsq("1st 12", 2, winNums))
+  betSqs.push(new BetSq("1st 12", 2, winNums))
   winNums = []
   for(i=12;i<25;i++){winNums.push(i)}
-  betSqs.push(new OutsideBetsq("2nd 12", 2, winNums))
+  betSqs.push(new BetSq("2nd 12", 2, winNums))
   winNums = []
   for(i=26;i<37;i++){winNums.push(i)}
-  betSqs.push(new OutsideBetsq("3rd 12",2, winNums))
-  betSqs.push(new OutsideBetsq("Red", 1, redNums))
+  betSqs.push(new BetSq("3rd 12",2, winNums))
+  betSqs.push(new BetSq("Red", 1, redNums))
   winNums = []
   for(i=19;i<37;i++){if (!(i in redNums)){winNums.push(i)}}
-  betSqs.push(new OutsideBetsq("Black", 1, winNums))
+  betSqs.push(new BetSq("Black", 1, winNums))
   winNums = []
   for(i=1;i<37;i++){if (i%2){winNums.push(i)}}
-  betSqs.push(new OutsideBetsq("Odd", 1, winNums))
+  betSqs.push(new BetSq("Odd", 1, winNums))
   for(i=1;i<37;i++){if (!(i%2)){winNums.push(i)}}
-  betSqs.push(new OutsideBetsq("Even", 1, winNums))
-  console.log(outsideBets)
+  betSqs.push(new BetSq("Even", 1, winNums))
   console.log("Create Bet Sqs",betSqs)
 }
 
+function handleBoardClick(tgt){
+  // console.dir(tgt)
+  if (!bettingClosed){
+    let click_betSq = betSqs.find(sq=>sq.text === tgt.innerText)
+    player.bets.push(new Bet(click_betSq,100)) // NEED TO ADD AMOUNT
+    // console.log(player.bets)
+  }
+}
+
 createBetSqs()
+let player = new Player("Andrew",1000)

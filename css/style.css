@@ -1,7 +1,14 @@
 
 body{
   background-color: green;
-  /* display: grid; */
+  display: grid;
+}
+
+#spin {
+  width: 100px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: whitesmoke;
 }
 
 #board {
@@ -62,17 +69,17 @@ body{
   grid-template-rows: repeat(3, [row] 120px);
 }
 
-@keyframes Rotate
+/* @keyframes Rotate
   {from { transform: rotate(0deg) }
   to { transform: rotate(720deg) }
-}
+} */
 
 img {
   width: 240px;
   /* transform: rotate(1024deg); */
-  animation: Rotate 7s linear;
+  /* animation: Rotate 7s linear;
   position: relative;
-  animation-play-state: play;
+  animation-play-state: play; */
 }
 #G {
   font-size: 65%;
