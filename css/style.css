@@ -72,7 +72,7 @@ img {
   /* transform: rotate(1024deg); */
   animation: Rotate 7s linear;
   position: relative;
-  animation-play-state: paused;
+  animation-play-state: play;
 }
 #G {
   font-size: 65%;

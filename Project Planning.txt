@@ -1,0 +1,69 @@
+Andrew Rentschler
+SEI - 3/20/23
+Unit 1 Project - Browser Game
+
+Game = Roulette!
+
+Theme = Wild West
+
+Pseudocode
+//setup
+wheelnums = ["0","00","1",..."36"]
+rednums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
+
+Player(obj)
+>has a balance of chips initialized to them
+>has a userID //for future when there are multiple players
+>has an array to hold their bets
+>has a balance
+>has a name
+>method for setting name
+>methods for modifying/checking balance
+
+
+BetSqrs(obj) for each of the numbers and outsideBets represented on the board
+>has array of wheelnums that make it a winner
+>has a color
+>has a payout (payout per 1 chip bet)
+>has text
+
+Bet(obj) created for each bet a user makes for each game loop (spin)
+>has a BetSqr //(reference)
+>has a betID //for future for tracking
+>has a userID
+>has a winner = T/F
+>has methods for placing/removing chip icon
+>has method to modify/check player balance
+>removes the bet amount from User balance
+
+
+
+GAME LOOP (spin)
+- Open Betting
+- Click numbers or outside bets to select where you would like to place bet
+- Click the bet to edit or remove
+--      Needs to show payout and maybe highlight the winning area - on hover maybe
+- Click spin to close betting and generate random number ["0","00","1",..."36"]
+--      Display winning number
+-- Check bets (forEach)
+--      if winner => calculate payout, modify user balance, remove chip icon, display winner text
+--      if loser => update bet, remove chip icon, display loser text
+--reset and render board
+
+Game-Specific Requirements
+- Image for Roulette wheel
+
+Additional Goals (unordered)
+> Show previous spin winning numbers on a board
+> Chip moving and stack animations
+> Have the wheel spin and and stop on the winning number
+> Have multiple players (user + computer)
+> Have Player and Dealer Avatars
+
+Crazy Future Goals
+> Isometric graphics
+> Multiple games in casino
+> Virtual prizes/trophies
+
+Github
+https://github.com/AndrewRentschler/Roulette
