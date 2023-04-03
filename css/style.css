@@ -32,6 +32,7 @@ body{
 
 }
 
+#num
 .num-row > div {
   /* background-color: green; */
   color: whitesmoke;
@@ -50,15 +51,16 @@ body{
 }
 
 .numBet {
-  /* margin: auto; */
-  display: inline-block
+  margin: auto;
+  /* display: inline-block; */
+  color: white;
+  background-color: green;  
 }
+
 .outsideBet {
   margin: auto;
 }
-.zeroes {
-  margin: auto;
-}
+
 
 #zeroes > div{
   grid-template-columns: repeat(2, [col] 45px);

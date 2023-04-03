@@ -8,13 +8,13 @@ const wheel = document.getElementById('wheel')
 const spinBtn = document.querySelector('button')
 let bettingClosed = false
 const betSqs = []
-let outsideBets = document.getElementsByClassName("outsideBet")
-const redNums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
+let outsideBets = [...document.getElementsByClassName("outsideBet")]
+const redNums = ["1","3","5","7","9","12","14","16","18","19","21","23","25","27","30","32","34","36"]
 const board = document.getElementById('board')
 let boardNums = document.getElementById('numbers')
 let betNum = 0
 let betBoard = document.getElementById('bet-board')
-let insideBets = document.getElementsByClassName('numBet')
+let insideBets = [...document.getElementsByClassName('numBet')]
 
 
 // ---- Event Listeners
@@ -77,6 +77,7 @@ class BetSq {
     this.color = null
     // this.style.backgroundColor = this.color
     this.setColor()
+    this.renderColor(this.color)
   }
   checkWinner(winNum){
     console.log(winNum)
@@ -84,12 +85,17 @@ class BetSq {
   }
   setColor() {
     if (this.text === "0" || this.text === "00" ){
-      this.color = "green"
-    }else if (this.text in redNums){
+      this.color = "white"
+    }else if (redNums.some(el=>el == this.text)){
       this.color = "red"
-    }else{
+    }else if (this.text.length <= 2 ? true:false){
       this.color = "black"
     }
+  }
+  renderColor(color){
+    let sq = insideBets.find(el=>el.innerText === this.text)
+    console.dir(sq)
+    sq.style['color'] = color
   }
 }
 class Bet {
@@ -97,7 +103,6 @@ class Bet {
     this.betSq = betSq
     this.amount = amount
     this.winner = false
-
     this.takeBet(amount)
     this.info = `${betSq.text} : $${amount}`
     // this.betID = betNum
@@ -200,6 +205,7 @@ function createBetSqs() {
   betSqs.push(new BetSq("Even", 1, winNums))
   console.log("Create Bet Sqs",betSqs)
   betSqs.forEach(sq=>sq.setColor())
+
 }
 
 function handleBoardClick(tgt){
@@ -223,5 +229,8 @@ function updateBetBoard(bet) {
   </div>`
   betBoard.appendChild(betCard)
 }
-createBetSqs()
 let player = new Player("Andrew",1000)
+createBetSqs()
+console.log(insideBets)
+
+// sq12.style.backgroundColor = "red"
