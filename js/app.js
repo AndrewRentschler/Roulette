@@ -14,7 +14,9 @@ const board = document.getElementById('board')
 let boardNums = document.getElementById('numbers')
 let betNum = 0
 let betBoard = document.getElementById('bet-board')
+let betCards = []
 let insideBets = [...document.getElementsByClassName('numBet')]
+let sliders = []
 
 
 // ---- Event Listeners
@@ -28,6 +30,9 @@ board.addEventListener('click',function(evt){
 wheel.addEventListener('click',function(evt){
   // alert("Don't Touch the Wheel")
 })
+// betBoard.addEventListener('click',)
+
+
 
 // ---- Classes ----
 // class Game {
@@ -99,18 +104,22 @@ class BetSq {
   }
 }
 class Bet {
-  constructor(betSq, amount){
+  constructor(betSq, amount, betNum){
     this.betSq = betSq
     this.amount = amount
     this.winner = false
     this.takeBet(amount)
     this.info = `${betSq.text} : $${amount}`
-    // this.betID = betNum
+    this.betID = betNum
+    this.slider = null
     // betNum++
     console.log(`New Bet! ${betSq.text} for ${amount}`)
     //update player balance
     //place chip art on board
     //display the bet on screen
+  }
+  updateAmount(amt){
+    this.amount = amt
   }
   takeBet(amt){
     player.balance -= amt
@@ -212,7 +221,9 @@ function handleBoardClick(tgt){
   // console.dir(tgt)
   if (!bettingClosed){
     let click_betSq = betSqs.find(sq=>sq.text == tgt.innerText)
-    let newBet = new Bet(click_betSq,100)
+    let newBet = new Bet(click_betSq,0,betNum)
+    console.log(betNum)
+    betNum++
     player.bets.push(newBet)
     updateBetBoard(newBet) // NEED TO ADD AMOUNT
     // console.log(player.bets)
@@ -222,15 +233,28 @@ function handleBoardClick(tgt){
 function updateBetBoard(bet) {
   let betCard = document.createElement("div")
   betCard.className = 'bet-card'
+  betCard.id = `betCard-${betNum}`
   betCard.innerHTML =
   `<div class= 'bet'>
-    <p>${bet.info}</p>
-    <button class='delete-btn' id='delete-btn'>X</button>
+    <p>${bet.info}</p><div class="slidecontainer">
+    <input type="range" min="1" max="1000" value="0" class="slider" id="betSlider-${betNum}">
+  </div>
+    <button class='delete-btn' id='delete-btn-${betNum}'>X</button>
   </div>`
+
   betBoard.appendChild(betCard)
+  betCards.push(betCard)
+  bet.slider = document.getElementById(`betSlider-${betNum}`)
+  sliders.push(bet.slider)
+  console.log(sliders)
+  console.log(betCards)
 }
 let player = new Player("Andrew",1000)
 createBetSqs()
-console.log(insideBets)
+while (!bettingClosed){
+  slider.forEach(function(el){
+    
+
+})}
 
 // sq12.style.backgroundColor = "red"

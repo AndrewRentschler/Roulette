@@ -25,6 +25,7 @@ body{
   width: fit-content;
   padding: 1px;
   grid-column: 1;
+  cursor: pointer;
 }
 #numbers {
   display: grid;
@@ -48,15 +49,22 @@ body{
   display: grid;
   grid-template-columns: repeat(3, [col] 30px);
   grid-template-rows: 30px;
+  vertical-align: middle;
 }
 
 .numBet {
-  margin: auto;
   /* display: inline-block; */
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   color: white;
-  background-color: green;  
+  background-color: green;
+  font-weight: 600;
 }
-
+.slidecontainer {
+  
+}
 .outsideBet {
   margin: auto;
 }
@@ -118,17 +126,22 @@ img {
 .bet-card {
   color: whitesmoke;
   display: flex;
+  justify-content:center;
+  width: 300px;
 }
 .bet {
   color: whitesmoke;
   display: flex;
+  justify-content: center;
+  width: 300px;
 
 }
-.bet > p{
+.bet > p {
   color: whitesmoke;
   display: flex;
   padding: 0px 10px;
   margin: 10px;
+  width: 75px;
 }
 .bet > button {
   margin: auto;
