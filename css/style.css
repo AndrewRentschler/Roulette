@@ -1,6 +1,6 @@
 
 body{
-  background-color: green;
+  background-color: rgb(38, 141, 124);
   display: grid;
   grid-template-columns: repeat(2, [col] 300px);
 }
@@ -8,8 +8,15 @@ body{
   display: flex;
   flex-direction: column;
   grid-column: 2;
+  background-color: rgb(133, 122, 122);
+  margin: 100 auto;
 }
+#left > div{
+  background-color: #77b94a;
+  justify-content: center;
+  align-items: center;
 
+}
 #spin {
   width: 100px;
   margin: 10px;
@@ -22,18 +29,22 @@ body{
   display: grid;
   grid-template-columns: repeat(2, [col] 90px);
   /* background-color: whitesmoke; */
+  background-color: whitesmoke;
   width: fit-content;
-  padding: 1px;
+  padding: 20px;
+  border: #000;
+  border-width: 10px;
   grid-column: 1;
   cursor: pointer;
+  justify-content: center;
+  margin: 0 auto;
 }
 #numbers {
   display: grid;
   width: fit-content;
-
 }
 
-#num
+
 .num-row > div {
   /* background-color: green; */
   color: whitesmoke;
@@ -52,18 +63,18 @@ body{
   vertical-align: middle;
 }
 
+
 .numBet {
-  /* display: inline-block; */
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
   color: white;
-  background-color: green;
-  font-weight: 600;
-}
-.slidecontainer {
-  
+  /* height: 25px;
+  width: 25px; */
+  /* background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;   */
 }
 .outsideBet {
   margin: auto;
@@ -107,6 +118,7 @@ body{
 img {
   width: 240px;
   grid-column: 1;
+  justify-content: center;
   /* transform: rotate(1024deg); */
   /* animation: Rotate 7s linear;
   position: relative;
@@ -145,4 +157,49 @@ img {
 }
 .bet > button {
   margin: auto;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#wheel {
+
+  /* padding: 0 auto; */
+  justify-content: center;
+  align-items: center;
 }

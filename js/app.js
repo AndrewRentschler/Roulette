@@ -6,6 +6,8 @@ const spins = []
 const wheelNums = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 const wheel = document.getElementById('wheel')
 const spinBtn = document.querySelector('button')
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
 let bettingClosed = false
 const betSqs = []
 let outsideBets = [...document.getElementsByClassName("outsideBet")]
@@ -31,37 +33,18 @@ wheel.addEventListener('click',function(evt){
   // alert("Don't Touch the Wheel")
 })
 // betBoard.addEventListener('click',)
-
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 
 
 // ---- Classes ----
-// class Game {
-//   constructor(){
-//     this.spins = []
-//     this.players = []
-//     this.wheelNums = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
-//     this.wheel = document.getElementById('wheel')
-//     this.spinBtn = document.querySelector('button')
-//     this.bettingClosed = true
-//     this.betSqs = this.createBetSqs()
-//   }
-//   createBetSqs(){
-//     let betSqs = []
-//     for (let num in this.wheelNums){
-//       betSqs.push(new NumberBetSq(toString(num),35,"black",num))
-//     }
-//     // for (let outside in document.getElementsByClassName("column")){}
-//     console.log("Create Bet Sqs",betSqs)
-//   }
-// }
 
-// class Bet {
-//   constructor(playerID, betSq, amount){
-//     this.playerID = playerID
-//     this.betSq = betSq
-//     this.amount = amount
-//   }
-// }
 class Player {
   constructor(name, balance){
     this.name = name
@@ -69,7 +52,7 @@ class Player {
     // this.avatar = null
     this.bets = []
   }
-  decBalance(amt){amt>this.balance?this.balance-=amt:null}
+  decBalance(amt){amt<this.balance ? this.balance -= amt:null}
   addBalance(amt){this.balance += amt}
   ckBalance(){return this.balance}
 }
@@ -82,7 +65,7 @@ class BetSq {
     this.color = null
     // this.style.backgroundColor = this.color
     this.setColor()
-    this.renderColor(this.color)
+    this.winSqs.length == 1 ? this.renderColor(this.color): null
   }
   checkWinner(winNum){
     console.log(winNum)
@@ -93,7 +76,7 @@ class BetSq {
       this.color = "white"
     }else if (redNums.some(el=>el == this.text)){
       this.color = "red"
-    }else if (this.text.length <= 2 ? true:false){
+    }else if (this.text.length <= 2){
       this.color = "black"
     }
   }
@@ -108,7 +91,7 @@ class Bet {
     this.betSq = betSq
     this.amount = amount
     this.winner = false
-    this.takeBet(amount)
+    this.takeBet(this.amount)
     this.info = `${betSq.text} : $${amount}`
     this.betID = betNum
     this.slider = null
@@ -122,7 +105,9 @@ class Bet {
     this.amount = amt
   }
   takeBet(amt){
-    player.balance -= amt
+    // console.log("Take Bet - User Balance Before ",player.balance)
+    // this.decBalance(amt)
+    // console.log("Take Bet - User Balance After ",player.balance)
   }
   deleteBet(){
     console.log('deletepress')
@@ -175,6 +160,10 @@ class Spin {
     // console.log(typeof this.bets[0])
   }
 }
+
+//....FUNCTIONS
+let player = new Player("Andrew",1000)
+
 function createBetSqs() {
   let winNums = []
   for (let num in wheelNums){
@@ -221,7 +210,8 @@ function handleBoardClick(tgt){
   // console.dir(tgt)
   if (!bettingClosed){
     let click_betSq = betSqs.find(sq=>sq.text == tgt.innerText)
-    let newBet = new Bet(click_betSq,0,betNum)
+    let newBet = new Bet(click_betSq,100,betNum)
+    modal.style.display = "none" // MODAL
     console.log(betNum)
     betNum++
     player.bets.push(newBet)
@@ -249,12 +239,12 @@ function updateBetBoard(bet) {
   console.log(sliders)
   console.log(betCards)
 }
-let player = new Player("Andrew",1000)
-createBetSqs()
-while (!bettingClosed){
-  slider.forEach(function(el){
-    
 
-})}
 
-// sq12.style.backgroundColor = "red"
+//....MAIN....
+function main(){
+  player = new Player("Andrew",1000)
+  createBetSqs()
+}
+
+main()
