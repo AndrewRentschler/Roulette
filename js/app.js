@@ -8,6 +8,7 @@ const wheel = document.getElementById('wheel')
 const spinBtn = document.querySelector('button')
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
+var resetGame = document.getElementById('reset-game')
 let bettingClosed = false
 const betSqs = []
 let outsideBets = [...document.getElementsByClassName("outsideBet")]
@@ -41,7 +42,9 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
-
+resetGame.onclick = function(event) {
+  main()
+}
 
 // ---- Classes ----
 
@@ -245,6 +248,8 @@ function updateBetBoard(bet) {
 function main(){
   player = new Player("Andrew",1000)
   createBetSqs()
+  betNum = 0
+  betBoard
 }
 
 main()
