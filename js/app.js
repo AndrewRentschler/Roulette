@@ -20,23 +20,18 @@ let betBoard = document.getElementById('bet-board')
 let betCards = []
 let insideBets = [...document.getElementsByClassName('numBet')]
 let sliders = []
-
+let wheelInfoEl = document.getElementById('wheel-info')
 
 // ---- Event Listeners
 spinBtn.addEventListener('click',function(evt){
   spins.push(new Spin())
 })
 board.addEventListener('click',function(evt){
-  // console.log(evt.target)
   handleBoardClick(evt.target)
 })
-wheel.addEventListener('click',function(evt){
-  // alert("Don't Touch the Wheel")
-})
+// wheel.addEventListener('click',function(evt){})
 // betBoard.addEventListener('click',)
-span.onclick = function() {
-  modal.style.display = "none";
-}
+span.onclick = function() {modal.style.display = "none";}
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
@@ -57,9 +52,15 @@ class Player {
   }
   decBalance(amt){amt<this.balance ? this.balance -= amt:null}
   addBalance(amt){this.balance += amt}
-  ckBalance(){return this.balance}
-}
+  ckBet(amt){
+    if (amt<this.balance){
+      return true
+    }else{
+      return false
+    }
 
+  }
+}
 class BetSq {
   constructor(text, pays, winSqs){
     this.text = text
@@ -69,6 +70,14 @@ class BetSq {
     // this.style.backgroundColor = this.color
     this.setColor()
     this.winSqs.length == 1 ? this.renderColor(this.color): null
+    this.el = this.getEl()
+  }
+  getEl(){
+    if (this.winSqs.length == 1){
+      return insideBets.find(el=>el.innerText === this.text)
+    }else{
+      return outsideBets.find(el=>el.innerText === this.text)
+    }
   }
   checkWinner(winNum){
     console.log(winNum)
@@ -100,14 +109,26 @@ class Bet {
     this.slider = null
     // betNum++
     console.log(`New Bet! ${betSq.text} for ${amount}`)
+    this.placeChip()
+    render()
     //update player balance
     //place chip art on board
     //display the bet on screen
+  }
+  placeChip(){
+    this.betSq.el.style['backgroundColor'] = '#bbb'
+    this.betSq.el.style['borderRadius'] = '50%'
+  }
+  removeChip(){
+    this.betSq.el.style['backgroundColor'] = ''
+    this.betSq.el.style['borderRadius'] = ''
   }
   updateAmount(amt){
     this.amount = amt
   }
   takeBet(amt){
+    player.decBalance(amt)
+
     // console.log("Take Bet - User Balance Before ",player.balance)
     // this.decBalance(amt)
     // console.log("Take Bet - User Balance After ",player.balance)
@@ -129,15 +150,10 @@ class Spin {
     console.log("Spinning...")
     let winNum = Math.floor(Math.random() * wheelNums.length)
     console.log("Spin Winning Num", wheelNums[winNum].toString())
-    // wheel.animation-play-state[play]
-    //need a rand num function
-    //need to run animation
-    //need to close bets & collect them
     this.closeBets()
-    //check WinningNum vs the bets
+    document.getElementById('last-spin').textContent = "Spin Winning Num"+wheelNums[winNum].toString()
     this.checkBets()
-    //-Payout bets and update balances
-    this.render()
+    // this.render()
     bettingClosed = false
     //Reset board
   }
@@ -145,7 +161,7 @@ class Spin {
     console.log("...Closing Bets")
     bettingClosed = true
     player.bets.forEach((bet)=>this.bets.push(bet))
-    // console.log(this.bets)
+    console.log(this.bets)
   }
   checkBets(){
     console.log("checkbets")
@@ -155,13 +171,13 @@ class Spin {
       if (bet.betSq.checkWinner(this.winNum)){
         console.log(`Winner! Pays ${bet.betSq.pays*bet.amount}`)
         console.dir(bet.betSq)
+        player.addBalance(bet.betSq.pays*bet.amount)
       }
+      bet.removeChip()
     })
 
   }
-  render(){
-    // console.log(typeof this.bets[0])
-  }
+
 }
 
 //....FUNCTIONS
@@ -213,13 +229,15 @@ function handleBoardClick(tgt){
   // console.dir(tgt)
   if (!bettingClosed){
     let click_betSq = betSqs.find(sq=>sq.text == tgt.innerText)
-    let newBet = new Bet(click_betSq,100,betNum)
-    modal.style.display = "none" // MODAL
-    console.log(betNum)
-    betNum++
-    player.bets.push(newBet)
-    updateBetBoard(newBet) // NEED TO ADD AMOUNT
-    // console.log(player.bets)
+    if (player.ckBet(100)){
+      let newBet = new Bet(click_betSq,100,betNum)
+      modal.style.display = "none" // MODAL
+      console.log(betNum)
+      betNum++
+      player.bets.push(newBet)
+      updateBetBoard(newBet) // NEED TO ADD AMOUNT
+      // console.log(player.bets)
+    }
   }
 }
 
@@ -242,7 +260,9 @@ function updateBetBoard(bet) {
   console.log(sliders)
   console.log(betCards)
 }
-
+function render(){
+  wheelInfoEl.innerText = `Player: ${player.name}\nBalance: ${player.balance}`
+}
 
 //....MAIN....
 function main(){
@@ -250,6 +270,7 @@ function main(){
   createBetSqs()
   betNum = 0
   betBoard
+  render()
 }
 
 main()
