@@ -2,6 +2,7 @@ console.log("...init")
 
 
 // ---- Variables ----
+let winNum = null
 const spins = []
 const wheelNums = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 const wheel = document.getElementById('wheel')
@@ -24,7 +25,7 @@ let wheelInfoEl = document.getElementById('wheel-info')
 
 // ---- Event Listeners
 spinBtn.addEventListener('click',function(evt){
-  spins.push(new Spin())
+  spins.push(new Spin(evt))
 })
 board.addEventListener('click',function(evt){
   handleBoardClick(evt.target)
@@ -81,7 +82,9 @@ class BetSq {
   }
   checkWinner(winNum){
     console.log(winNum)
-    return this.winSqs.some((winSq)=>winSq == winNum)
+    return this.winSqs.some((winSq)=>{
+      return winSq == winNum
+    })
   }
   setColor() {
     if (this.text === "0" || this.text === "00" ){
@@ -133,9 +136,9 @@ class Bet {
     // this.decBalance(amt)
     // console.log("Take Bet - User Balance After ",player.balance)
   }
-  deleteBet(){
-    console.log('deletepress')
-  }
+  // deleteBet(){
+  //   console.log('deletepress')
+  // }
 }
 class Spin {
   constructor(evt){
@@ -148,13 +151,15 @@ class Spin {
   }
   spin() {
     console.log("Spinning...")
-    let winNum = Math.floor(Math.random() * wheelNums.length)
-    console.log("Spin Winning Num", wheelNums[winNum].toString())
+    this.winNum = Math.floor(Math.random() * wheelNums.length)
+    this.winNum = 5
+    console.log("Spin Winning Num", wheelNums[this.winNum])
     this.closeBets()
-    document.getElementById('last-spin').textContent = "Spin Winning Num"+wheelNums[winNum].toString()
-    this.checkBets()
+    document.getElementById('last-spin').textContent = "Spin Winning Number is ... "+wheelNums[this.winNum]+" !"
+    this.checkBets(this.winNum)
     // this.render()
     bettingClosed = false
+    document.getElementById('last-spin').textContent = `Last Spin: ${wheelNums[this.winNum]}`
     //Reset board
   }
   closeBets(){
@@ -163,17 +168,19 @@ class Spin {
     player.bets.forEach((bet)=>this.bets.push(bet))
     console.log(this.bets)
   }
-  checkBets(){
+  checkBets(winNum){
     console.log("checkbets")
     console.log(this.bets)
     this.bets.forEach(bet=>{
       console.log(bet.betSq.text)
       if (bet.betSq.checkWinner(this.winNum)){
         console.log(`Winner! Pays ${bet.betSq.pays*bet.amount}`)
+        document.getElementById('last-spin').textContent += `You win!! ${bet.betSq.pays*bet.amount}`
         console.dir(bet.betSq)
         player.addBalance(bet.betSq.pays*bet.amount)
       }
       bet.removeChip()
+      render()
     })
 
   }
@@ -235,10 +242,13 @@ function handleBoardClick(tgt){
       console.log(betNum)
       betNum++
       player.bets.push(newBet)
-      updateBetBoard(newBet) // NEED TO ADD AMOUNT
+      // updateBetBoard(newBet) // NEED TO ADD AMOUNT
       // console.log(player.bets)
     }
   }
+}
+function deleteBet(evt){
+  null
 }
 
 function updateBetBoard(bet) {
@@ -257,11 +267,12 @@ function updateBetBoard(bet) {
   betCards.push(betCard)
   bet.slider = document.getElementById(`betSlider-${betNum}`)
   sliders.push(bet.slider)
-  console.log(sliders)
-  console.log(betCards)
+  // console.log(sliders)
+  // console.log(betCards)
 }
 function render(){
   wheelInfoEl.innerText = `Player: ${player.name}\nBalance: ${player.balance}`
+  
 }
 
 //....MAIN....
