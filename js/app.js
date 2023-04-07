@@ -26,26 +26,18 @@ let wheelInfoEl = document.getElementById('wheel-info')
 let insideBets = [...document.getElementsByClassName('numBet')]
 let outsideBets = [...document.getElementsByClassName("outsideBet")]
 
-var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("close")[0];
 var resetGame = document.getElementById('reset-game')
 
 let betCards = []
 let bettingClosed = false
 
 // ---- Event Listeners
-spinBtn.addEventListener('click',function(evt){
-  spins.push(new Spin(evt))
-})
-board.addEventListener('click',function(evt){
-  handleBoardClick(evt.target)
-})
+spinBtn.addEventListener('click',function(evt){spins.push(new Spin(evt))})
+board.addEventListener('click',function(evt){handleBoardClick(evt.target)})
 resetGame.onclick = function(evt) {
   main()
 }
 betBoard.addEventListener('click',deleteBetBoard)
-
-
 
 // ---- Classes ----
 class Player {
@@ -69,12 +61,11 @@ class Player {
   }
   resetBets(){this.bets = [];render()}
 }
-function renderColor(color){
-  let sq = insideBets.find(el=>el.innerText === this.text)
+function renderColor(color,idx){
+  let sq = insideBets.find(el=>el.innerText === idx)
   console.dir(sq)
   sq.style['color'] = color
 }
-
 class Bet {
   constructor(tgt, amount){
     this.tgt = tgt
@@ -85,9 +76,7 @@ class Bet {
     this.info = `${this.text} : $${this.amount}`
     this.getWinNums(tgt)
     this.takeBet(this.amount)
-
     this.betID = null
-    // console.log(`New Bet! ${betSq.text} for ${amount}`)
   }
   placeChip(){
     console.log(`...placing ${this.info}`)
@@ -149,9 +138,7 @@ class Bet {
     }else if (tgt.innerText == 'Black'){
       this.winNums = wheelNums.filter(x => redNums.indexOf(x) === -1)
       this.pays = 2
-    }else{
-
-    }
+    }else{}
   }
 }
 
@@ -162,7 +149,6 @@ class Spin {
     this.winNum = null
     this.winBetSq = null
     this.spin()
-
   }
   spin() {
     console.log("Spinning...")
@@ -195,9 +181,7 @@ class Spin {
     })
     bettingClosed = false
   }
-
 }
-
 //....FUNCTIONS
 let player = new Player("Andrew",1000)
 render()
@@ -209,17 +193,12 @@ function handleBoardClick(tgt){
   }
   render()
 }
-
-
-
 function render(){
   wheelInfoEl.innerText = `Player: ${player.name}\nBalance: ${player.balance}`
   betBoard.innerHTML = ''
   player.bets.forEach((bet,idx)=>{
     addBetBoard(bet, idx)
-  }
-  )
-
+  })
 }
 // ....BETBOARD....
 function addBetBoard (bet, idx) {
@@ -240,7 +219,6 @@ function deleteBetBoard(evt){
   player.bets.splice(idx,1)
   render()
 }
-
 
 //....MAIN....
 function main(){
