@@ -211,6 +211,7 @@ function renderRed(){
     redNums.some((redEl)=>redEl==el.innerText)?el.style['color'] = '#9f2305':null
   })
   outsideBets.find(el=>el.innerText=='Red').style['color'] = '#9f2305'
+  outsideBets.find(el=>el.innerText=='Black').style['color'] = 'Black'
 }
 // ....BETBOARD....
 function addBetBoard (bet, idx) {
