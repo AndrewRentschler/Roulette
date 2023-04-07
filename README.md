@@ -2,20 +2,12 @@
 This is a fun simplified version of the game of Roulette!
 - Roulette is a Casino Table Game where players place bets on where a spinning wheel will stop.
 
-// link to wikipedia about roulette
+![img](assets/Roulette_Table.PNG)
+
+## [Click Here To Play!](https://andrewr-roulette.netlify.app/)
 
 
-
-README TODO
-- *Need to Make Name Themed*
-
-- *Insert Screenshots*
-
-- *Link to Deployed Game*
-- *Have How to Play on a seperate page*
-
-Click Here To Play!
-
+## How to Play!
 ## 1. Place Bets
 - ### Number Bet - ( 1-36, 0, 00 )
     - Player selects directly which number they are betting the wheel will select.
@@ -67,4 +59,4 @@ Click Here To Play!
 - Login and Save Game Functionality
 - Additional Themes
 
-Here's How I planned the game!
+[Here's How I planned the game!](https://github.com/AndrewRentschler/Roulette/blob/main/Project%20Planning.txt)

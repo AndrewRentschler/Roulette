@@ -150,7 +150,6 @@ class Spin {
   spin() {
     console.log("Spinning...")
     this.winNum = Math.floor(Math.random() * wheelNums.length)
-    this.winNum = "5"
     console.log("Spin Winning Num", wheelNums[this.winNum])
     this.closeBets()
     this.checkBets(this.winNum)
@@ -203,7 +202,7 @@ function render(){
   wheelInfoEl.innerText = `Player: ${player.name}\nBalance: ${player.balance}`
   betBoard.innerHTML = ''
   winMsgEl.innerText = ''
-  player.bets.forEach((bet,idx)=>{ //******** */
+  player.bets.forEach((bet,idx)=>{
     bet.removeChip()
     addBetBoard(bet, idx)
   })
