@@ -1,6 +1,6 @@
 
 body{
-  background-color: darkgreen;
+  background-color: rgb(255, 189, 47);
   display: grid;
   grid-template-columns: repeat(2, [col] 300px);
 }
@@ -8,20 +8,16 @@ body{
   display: flex;
   flex-direction: column;
   grid-column: 2;
-  background-color: darkgreen;
+  background-color: rgb(248, 44, 255);
   margin: 100 auto;
-  border-radius: 25px;
-  border: 2px solid #73AD21;
-  padding: 20px;
-  width: 200px;
-  height: 150px;
 }
-#left {
-  border-radius: 100px;
-  background-color: darkgreen;
+#left > div{
+  background-color: #85eb41;
+  justify-content: center;
+  align-items: center;
 }
 button {
-  width: 200px;
+  width: 100px;
   margin: 10px;
   border-radius: 10px;
   background-color: whitesmoke;
@@ -29,12 +25,13 @@ button {
 }
 #board {
   display: grid;
-  background-color: darkgreen;
   grid-template-columns: repeat(2, [col] 90px);
   /* background-color: whitesmoke; */
   background-color: whitesmoke;
   width: fit-content;
+  padding: 20px;
   border: #000;
+  border-width: 10px;
   grid-column: 1;
   cursor: pointer;
   justify-content: center;
@@ -43,11 +40,10 @@ button {
 #numbers {
   display: grid;
   width: fit-content;
-  background-color: darkgreen;
 }
 .num-row > div {
   /* background-color: green; */
-  /* color: whitesmoke; */
+  color: whitesmoke;
   /* border-color: whitesmoke;
   border-style: inset;
   border-width: 2px; */
@@ -63,27 +59,11 @@ button {
   vertical-align: middle;
 }
 .numBet {
-  /* display: flex; */
+  display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
   color: white;
-
-}
-.numBetRed {
-  /* display: flex; */
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  color: red;
-
-}
-.numBetZero {
-  /* display: flex; */
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  color: green;
 
 }
 .numBetChip {
@@ -101,17 +81,23 @@ button {
 }
 #zeroes > div{
   grid-template-columns: repeat(2, [col] 45px);
-  color: darkgreen;
 }
 #outside-bets {
   display: grid;
   grid-template-columns: repeat(2, [col] 45px);
 }
 .column {
+  /* padding-top: 30px;
+  padding-bottom: 30px; */
   display: grid;
+  background-color: rgb(71, 249, 255);
 
 }
 .column div {
+  color: whitesmoke;
+  /* border-color: whitesmoke;
+  border-style:inset;
+  border-width: 1px; */
   text-align: center;
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -123,10 +109,18 @@ button {
 #column-B {
   grid-template-rows: repeat(3, [row] 120px);
 }
+/* @keyframes Rotate
+  {from { transform: rotate(0deg) }
+  to { transform: rotate(720deg) }
+} */
 img {
   width: 240px;
   grid-column: 1;
   justify-content: center;
+  /* transform: rotate(1024deg); */
+  /* animation: Rotate 7s linear;
+  position: relative;
+  animation-play-state: play; */
 }
 #G {
   font-size: 65%;
@@ -165,4 +159,45 @@ img {
 .bet > button {
   margin: auto;
   width: 25px;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  width: 25px;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#wheel {
+  /* padding: 0 auto; */
+  justify-content: center;
+  align-items: center;
 }

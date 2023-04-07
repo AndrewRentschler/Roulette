@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +22,14 @@
       <img id="wheel" src="./assets/roulette_wheel.png" alt="" srcset="">
       <h1 id="wheel-info"> </h1>
     </div>
+    <!-- Bet Modal -->
+    <div id="myModal" class="modal">
+      <!-- Bet Modal Content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="bet-modal"></div>
+      </div>
+    </div>
     <div id="board">
       <div id="outside-bets">
         <div id="column-A" class="column">
@@ -40,80 +49,80 @@
       <div id="numbers">
         <div id="zeroes" class="num-section">
           <div class="num-row">
-            <div class="numBetZero">0</div>
-            <div class="numBetZero">00</div>
+            <div class="numBet">0</div>
+            <div class="numBet">00</div>
           </div>
         </div>
         <div id="A" class="num-section">
           <div class="num-row">
-            <div class ="numBetRed">1</div>
+            <div class ="numBet">1</div>
             <div class ="numBet">2</div>
-            <div class ="numBetRed">3</div>
+            <div class ="numBet">3</div>
           </div>
           <div class="num-row">
             <div class ="numBet">4</div>
-            <div class ="numBetRed">5</div>
+            <div class ="numBet">5</div>
             <div class ="numBet">6</div>
           </div>
         </div>
         <div id="B">
           <div class="num-row">
-            <div class ="numBetRed">7</div>
+            <div class ="numBet">7</div>
             <div class ="numBet">8</div>
-            <div class ="numBetRed">9</div>
+            <div class ="numBet">9</div>
           </div>
           <div class="num-row">
             <div class ="numBet">10</div>
             <div class ="numBet">11</div>
-            <div class ="numBetRed">12</div>
+            <div class ="numBet">12</div>
           </div>
         </div>
         <div id="C">
           <div class="num-row">
             <div class ="numBet">13</div>
-            <div class ="numBetRed">14</div>
+            <div class ="numBet">14</div>
             <div class ="numBet">15</div>
           </div>
           <div class="num-row">
-            <div class ="numBetRed">16</div>
+            <div class ="numBet">16</div>
             <div class ="numBet">17</div>
-            <div class ="numBetRed">18</div>
+            <div class ="numBet">18</div>
           </div>
         </div>
         <div id="D">
           <div class="num-row">
-            <div class ="numBetRed">19</div>
+            <div class ="numBet">19</div>
             <div class ="numBet">20</div>
-            <div class ="numBetRed">21</div>
+            <div class ="numBet">21</div>
           </div>
           <div class="num-row">
             <div class ="numBet">22</div>
-            <div class ="numBetRed">23</div>
+            <div class ="numBet">23</div>
             <div class ="numBet">24</div>
           </div>
         </div>
         <div id="E">
           <div class="num-row">
-            <div class ="numBetRed">25</div>
+            <div class ="numBet">25</div>
             <div class ="numBet">26</div>
-            <div class ="numBetRed">27</div>
+            <div class ="numBet">27</div>
           </div>
           <div class="num-row">
             <div class ="numBet">28</div>
             <div class ="numBet">29</div>
-            <div class ="numBetRed">30</div>
+            <div class ="numBet">30</div>
           </div>
         </div>
         <div id="F">
           <div class="num-row">
             <div class ="numBet">31</div>
-            <div class ="numBetRed">32</div>
+            <div class ="numBet">32</div>
             <div class ="numBet">33</div>
           </div>
           <div class="num-row">
-            <div class ="numBetRed">34</div>
+            <div class ="numBet">34</div>
             <div class ="numBet">35</div>
-            <div class ="numBetRed">36</div>
+            <div class ="numBet">36</div>
           </div>
         </div>
     </div>

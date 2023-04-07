@@ -44,13 +44,7 @@ resetGame.onclick = function(evt) {
   main()
 }
 betBoard.addEventListener('click',deleteBetBoard)
-// ---- Modal Handling
-span.onclick = function() {modal.style.display = "none";}
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+
 
 
 // ---- Classes ----
@@ -74,17 +68,6 @@ class Player {
     }
   }
   resetBets(){this.bets = [];render()}
-}
-
-  
-function setColor() {
-  if (this.text === "0" || this.text === "00" ){
-    this.color = "white"
-  }else if (redNums.some(el=>el == this.text)){
-    this.color = "red"
-  }else if (this.text.length <= 2){
-    this.color = "black"
-  }
 }
 function renderColor(color){
   let sq = insideBets.find(el=>el.innerText === this.text)
@@ -227,9 +210,6 @@ function handleBoardClick(tgt){
   render()
 }
 
-function deleteBet(evt){
-  null
-}
 
 
 function render(){
@@ -239,7 +219,7 @@ function render(){
     addBetBoard(bet, idx)
   }
   )
-  renderBoard()
+
 }
 // ....BETBOARD....
 function addBetBoard (bet, idx) {
@@ -258,10 +238,7 @@ function deleteBetBoard(evt){
   const idx = evt.target.id.replace('delete-btn-', '')
   player.bets[idx].removeChip()
   player.bets.splice(idx,1)
-
-
   render()
-  
 }
 
 
