@@ -1,14 +1,14 @@
 console.log("...init")
 // ---- Variables ----
-const spins = []
+let spins = []
 const wheelNums = ["0","00","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"]
 const redNums = ["1","3","5","7","9","12","14","16","18","19","21","23","25","27","30","32","34","36"]
-const blkNums = []
+let blkNums = []
 // ---- Outside Bets Winning Squares
 const win1to18 = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"]
 const win19to36 = ["19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"]
-const winEven = wheelNums.filter(num=>(!(num%2) && num != "0" && num != "00"))
-const winOdd = wheelNums.filter(num=>num%2)
+let winEven = wheelNums.filter(num=>(!(num%2) && num != "0" && num != "00"))
+let winOdd = wheelNums.filter(num=>num%2)
 const win1to12 = ["1","2","3","4","5","6","7","8","9","10","11","12"]
 const win13to24 = ["13","14","15","16","17","18","19","20","21","22","23","24"]
 const win25to36 = ["25","26","27","28","29","30","31","32","33","34","35","36"]
@@ -22,11 +22,11 @@ let boardNums = document.getElementById('numbers')
 let betBoard = document.getElementById('bet-board')
 let lastSpinEl = document.getElementById('last-spin')
 let wheelInfoEl = document.getElementById('wheel-info')
-
+let winMsgEl = document.getElementById('win-msg')
 let insideBets = [...document.getElementsByClassName('numBet')]
 let outsideBets = [...document.getElementsByClassName("outsideBet")]
 
-var resetGame = document.getElementById('reset-game')
+let resetGameBtn = document.getElementById('reset-game')
 
 let betCards = []
 let bettingClosed = false
@@ -34,9 +34,7 @@ let bettingClosed = false
 // ---- Event Listeners
 spinBtn.addEventListener('click',function(evt){spins.push(new Spin(evt))})
 board.addEventListener('click',function(evt){handleBoardClick(evt.target)})
-resetGame.onclick = function(evt) {
-  main()
-}
+resetGameBtn.addEventListener('click',main)
 betBoard.addEventListener('click',deleteBetBoard)
 
 // ---- Classes ----
@@ -177,7 +175,10 @@ class Spin {
   }
   payouts(){
     this.bets.forEach(bet=>{
-      console.log("Paying Out: ", (bet.winner ? player.addBalance(bet.pays*bet.amount) : null))
+      if (bet.winner) {
+        player.addBalance(bet.pays*bet.amount)
+        winMsgEl.innerText = `Congratulations! Winner! $${bet.pays*bet.amount}`
+      }
       bet.removeChip()
     })
     bettingClosed = false
@@ -198,6 +199,7 @@ function render(){
   wheelInfoEl.innerText = `Player: ${player.name}\nBalance: ${player.balance}`
   betBoard.innerHTML = ''
   player.bets.forEach((bet,idx)=>{
+    bet.removeChip()
     addBetBoard(bet, idx)
   })
 }
@@ -224,6 +226,7 @@ function deleteBetBoard(evt){
 
 //....MAIN....
 function main(){
+  console.log('main')
   player = new Player("Andrew",1000)
   betNum = 0
   bettingClosed = false

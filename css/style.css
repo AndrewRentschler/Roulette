@@ -4,6 +4,7 @@ body{
   background-color: darkgreen;
   display: grid;
   grid-template-columns: repeat(2, [col] 300px);
+  justify-content: center;
 }
 #info {
   display: flex;
@@ -11,6 +12,11 @@ body{
   grid-column: 2;
   background-color: darkgreen;
   margin: 100 auto;
+}
+#left {
+  justify-content: center;
+  margin: 100 auto;
+  align-items: center;
 }
 #left > div{
   background-color: darkgreen;
@@ -90,13 +96,11 @@ button {
 .column {
   display: grid;
   background-color: darkgreen;
+  justify-content: center;
 
 }
 .column div {
   color: whitesmoke;
-  border-color: whitesmoke;
-  border-style:inset;
-  border-width: 1px;
   text-align: center;
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -159,20 +163,6 @@ img {
 .bet > button {
   margin: auto;
   width: 25px;
-}
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 #wheel {
