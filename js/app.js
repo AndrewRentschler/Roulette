@@ -174,13 +174,18 @@ class Spin {
     })
   }
   payouts(){
+    let isWinner = false
     this.bets.forEach(bet=>{
       if (bet.winner) {
         player.addBalance(bet.pays*bet.amount)
         winMsgEl.innerText = `Congratulations! Winner! $${bet.pays*bet.amount}`
+        isWinner = true
       }
       bet.removeChip()
     })
+    if (!(isWinner)){
+      winMsgEl.innerText = `No hits.`
+    }
     bettingClosed = false
   }
 }
@@ -198,6 +203,7 @@ function handleBoardClick(tgt){
 function render(){
   wheelInfoEl.innerText = `Player: ${player.name}\nBalance: ${player.balance}`
   betBoard.innerHTML = ''
+  winMsgEl.innerText = ''
   player.bets.forEach((bet,idx)=>{
     bet.removeChip()
     addBetBoard(bet, idx)
