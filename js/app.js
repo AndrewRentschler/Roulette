@@ -239,7 +239,7 @@ function render(){
     addBetBoard(bet, idx)
   }
   )
-
+  renderBoard()
 }
 // ....BETBOARD....
 function addBetBoard (bet, idx) {
