@@ -148,7 +148,7 @@ class Spin {
     this.spin()
   }
   spin() {
-    this.winNum = Math.floor(Math.random() * wheelNums.length)
+    this.winNum = wheelNums[Math.floor(Math.random() * wheelNums.length)]
     this.closeBets()
     this.checkBets(this.winNum)
     this.payouts()
