@@ -205,7 +205,7 @@ function render(){
 }
 function renderRed(){ // Render the Red nums Red, 
   insideBets.forEach((el)=>{
-    redNums.some((redEl)=>redEl==el.innerText)?el.style['color'] = '#9f2305':null
+    redNums.some((redEl)=>redEl==el.innerText)?el.style['color'] = '#9f2305':el.style['color'] = 'Black'
   })
   outsideBets.find(el=>el.innerText=='Red').style['color'] = '#9f2305' // Render 'Red' Red
   outsideBets.find(el=>el.innerText=='Black').style['color'] = 'Black' // Render 'Black' Black
