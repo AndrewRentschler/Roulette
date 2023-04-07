@@ -20,7 +20,7 @@ let spinBtn = document.querySelector('button')
 let board = document.getElementById('board')
 let boardNums = document.getElementById('numbers')
 let betBoard = document.getElementById('bet-board')
-
+let lastSpinEl = document.getElementById('last-spin')
 let wheelInfoEl = document.getElementById('wheel-info')
 
 let insideBets = [...document.getElementsByClassName('numBet')]
@@ -161,6 +161,7 @@ class Spin {
     bettingClosed = false
     betCards = []
     betNum = 0
+    lastSpinEl.innerText = `Last Spin: ${this.winNum}`
   }
   closeBets(){
     console.log("...Closing Bets")
@@ -187,7 +188,7 @@ let player = new Player("Andrew",1000)
 render()
 function handleBoardClick(tgt){
   console.dir(tgt)
-  if (!(bettingClosed)){
+  if (!(bettingClosed) && tgt.childNodes.length < 2){
     let newBet = new Bet(tgt,minBet)
     player.bets.push(newBet)
   }
@@ -208,7 +209,7 @@ function addBetBoard (bet, idx) {
   newBetCard.innerHTML = 
   `<div id='bet-card-${idx}' class='bet'>
     <p>${bet.text}</p>
-    <p>${bet.amount}</p>
+    <p>$${bet.amount}</p>
     <button class='delete-btn' id='delete-btn-${idx}'>X</button>
   `
   betBoard.appendChild(newBetCard)
@@ -216,6 +217,7 @@ function addBetBoard (bet, idx) {
 function deleteBetBoard(evt){
   const idx = evt.target.id.replace('delete-btn-', '')
   player.bets[idx].removeChip()
+  player.addBalance(player.bets[idx].amount) //Return the bet amount to the player
   player.bets.splice(idx,1)
   render()
 }
