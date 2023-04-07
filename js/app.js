@@ -1,4 +1,3 @@
-console.log("...init")
 // ---- Variables ----
 let spins = []
 const wheelNums = ["0","00","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"]
@@ -148,9 +147,7 @@ class Spin {
     this.spin()
   }
   spin() {
-    console.log("Spinning...")
     this.winNum = Math.floor(Math.random() * wheelNums.length)
-    console.log("Spin Winning Num", wheelNums[this.winNum])
     this.closeBets()
     this.checkBets(this.winNum)
     this.payouts()
@@ -160,13 +157,11 @@ class Spin {
     lastSpinEl.innerText = `Last Spin: ${this.winNum}`
   }
   closeBets(){
-    console.log("...Closing Bets")
     player.bets.forEach((bet)=>this.bets.push(bet))
     player.resetBets()  
     bettingClosed = true
   }
   checkBets(winNum){
-    console.log(this.bets)
     this.bets.forEach(function (bet){
       bet.winner = bet.winNums.some(numToCheck => numToCheck == winNum)
     })
@@ -232,17 +227,15 @@ function addBetBoard (bet, idx) { // Create New element to display the bet
 }
 
 function handleBetBoardClick(evt){
-  console.log(evt.target.className)
   if (evt.target.className === 'delete-btn'){ // Handle Delete button
     const idx = evt.target.id.replace('delete-btn-', '')
     player.bets[idx].removeChip()
     player.addBalance(player.bets[idx].amount) //Return the bet amount to the player
     player.bets.splice(idx,1)
-  }else if (evt.target.className === 'bet-adj-btn'){
-    console.log('idididid')
+  }else if (evt.target.className === 'bet-adj-btn'){32
     const idx = evt.target.id.replace('bet-adj-btn-', '')
     if (evt.targetinnerText=='+'){
-      console.log(player.bets[idx].updateAmount(true))
+      player.bets[idx].updateAmount(true)
     }else{
       player.bets[idx].updateAmount(false)
     }
@@ -252,7 +245,6 @@ function handleBetBoardClick(evt){
 
 //....MAIN....
 function main(){
-  console.log('main')
   player = new Player("Andrew",1000)
   betNum = 0
   bettingClosed = false
