@@ -59,11 +59,7 @@ class Player {
   }
   resetBets(){this.bets = [];render()}
 }
-function renderColor(color,idx){
-  let sq = insideBets.find(el=>el.innerText === idx)
-  console.dir(sq)
-  sq.style['color'] = color
-}
+
 class Bet {
   constructor(tgt, amount){
     this.tgt = tgt
@@ -208,6 +204,13 @@ function render(){
     bet.removeChip()
     addBetBoard(bet, idx)
   })
+  renderRed()
+}
+function renderRed(){
+  insideBets.forEach((el)=>{
+    redNums.some((redEl)=>redEl==el.innerText)?el.style['color'] = '#9f2305':null
+  })
+  outsideBets.find(el=>el.innerText=='Red').style['color'] = '#9f2305'
 }
 // ....BETBOARD....
 function addBetBoard (bet, idx) {
