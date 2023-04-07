@@ -217,7 +217,7 @@ function addBetBoard (bet, idx) {
   newBetCard.innerHTML = 
   `<div id='bet-card-${idx}' class='bet'>
     <p>${bet.text}</p>
-    <p>$${bet.amount}</p>
+    <p>Bet $${bet.amount}</p>
     <button class='delete-btn' id='delete-btn-${idx}'>X</button>
   `
   betBoard.appendChild(newBetCard)
