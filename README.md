@@ -34,12 +34,12 @@ This is a fun simplified version of the game of Roulette!
 
 ## Attributions
 - Favicon img
-
+    - https://www.flaticon.com/search?word=roulette
 - Roulette Wheel img
+    - freeimages.com
+- Background Pattern
+    - https://heropatterns.com/
 
-- MDN
-
-- W3 Schools
 
 
 
