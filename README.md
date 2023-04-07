@@ -12,6 +12,7 @@ README TODO
 - *Insert Screenshots*
 
 - *Link to Deployed Game*
+- *Have How to Play on a seperate page*
 
 Click Here To Play!
 
@@ -37,8 +38,7 @@ Click Here To Play!
 - Player balance will be updated and a new round of betting will begin.
 
 ## Technologies
-- HTML, CSS, Javascript
-- FlexBox, Grid, Objects, Classes, Arrays, Events
+- HTML, CSS, Javascript, Git
 
 ## Attributions
 - Favicon img
