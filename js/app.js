@@ -72,20 +72,21 @@ class Bet {
     this.betID = null
   }
   placeChip(){
-    console.log(`...placing ${this.info}`)
     this.tgt.style['backgroundColor'] = '#bbb'
     this.tgt.style['borderRadius'] = '50%'
   }
   removeChip(){
-    console.log(`...removing ${this.info}`)
     this.tgt.style['backgroundColor'] = ''
     this.tgt.style['borderRadius'] = ''
   }
-  updateAmount(plus){
-    if ((this.amount >= minBet+10) && (this.amount <= maxBet-10) ){
-    plus ? this.amount += 10 : this.amount -= 10
-    return true // Return that the bet was successful
-    }else{return false}
+  updateAmount(pos){
+    if (pos){
+      this.amount += 10
+      return true
+    }else{
+      this.amount -= 10
+      return true
+    }
   }
   takeBet(amt){
     player.decBalance(amt)
@@ -186,7 +187,6 @@ class Spin {
 let player = new Player("Andrew",1000)
 render()
 function handleBoardClick(tgt){
-  console.dir(tgt)
   if (!(bettingClosed) && tgt.childNodes.length < 2){ // If betting is Open, and the correct element was clicked
     let newBet = new Bet(tgt,minBet)
     player.bets.push(newBet)
@@ -234,7 +234,7 @@ function handleBetBoardClick(evt){
     player.bets.splice(idx,1)
   }else if (evt.target.className === 'bet-adj-btn'){32
     const idx = evt.target.id.replace('bet-adj-btn-', '')
-    if (evt.targetinnerText=='+'){
+    if (evt.target.innerText==='+'){
       player.bets[idx].updateAmount(true)
     }else{
       player.bets[idx].updateAmount(false)
@@ -247,6 +247,7 @@ function handleBetBoardClick(evt){
 function main(){
   player = new Player("Andrew",1000)
   betNum = 0
+  lastSpinEl.innerText = ''
   bettingClosed = false
   spins = []
   render()
