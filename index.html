@@ -124,7 +124,14 @@
     <button id="reset-game">Reset Game</button>
     <p id="last-spin">Last Spin: </p>
     <p id="win-msg"></p>
-    <div id="bet-board"></div>
+    <div id="bet-board">
+      <div id='bet-card-${idx}' class='bet'>
+        <p>${bet.text}</p>
+        <p>Bet $${bet.amount}</p>
+        <button class="bet-adj-btn" id="bet-adj-dwn">-</button>
+        <button class="bet-adj-btn" id="bet-adj-up">+</button>
+        <button class='delete-btn' id='delete-btn-${idx}'>X</button>
+    </div>
   </section>
 </body>
 </html>

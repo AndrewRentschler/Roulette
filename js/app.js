@@ -35,7 +35,7 @@ let bettingClosed = false
 spinBtn.addEventListener('click',function(evt){spins.push(new Spin(evt))})
 board.addEventListener('click',function(evt){handleBoardClick(evt.target)})
 resetGameBtn.addEventListener('click',main)
-betBoard.addEventListener('click',deleteBetBoard)
+betBoard.addEventListener('click',handleBetBoardClick)
 
 // ---- Classes ----
 class Player {
@@ -44,11 +44,11 @@ class Player {
     this.balance = balance
     this.bets = []
   }
-  decBalance(amt){amt<this.balance ? this.balance -= amt:null;render()}
+  decBalance(amt){
+    amt<this.balance ? this.balance -= amt : null
+  }
   addBalance(amt){
     this.balance += amt
-    render()
-    return amt
   }
   ckBet(amt){
     if (amt<this.balance){
@@ -82,8 +82,11 @@ class Bet {
     this.tgt.style['backgroundColor'] = ''
     this.tgt.style['borderRadius'] = ''
   }
-  updateAmount(amt){
-    this.amount = amt
+  updateAmount(plus){
+    if ((this.amount >= minBet+10) && (this.amount <= maxBet-10) ){
+    plus ? this.amount += 10 : this.amount -= 10
+    return true // Return that the bet was successful
+    }else{return false}
   }
   takeBet(amt){
     player.decBalance(amt)
@@ -190,7 +193,7 @@ let player = new Player("Andrew",1000)
 render()
 function handleBoardClick(tgt){
   console.dir(tgt)
-  if (!(bettingClosed) && tgt.childNodes.length < 2){
+  if (!(bettingClosed) && tgt.childNodes.length < 2){ // If betting is Open, and the correct element was clicked
     let newBet = new Bet(tgt,minBet)
     player.bets.push(newBet)
   }
@@ -200,21 +203,21 @@ function render(){
   wheelInfoEl.innerText = `Player: ${player.name}\nBalance: ${player.balance}`
   betBoard.innerHTML = ''
   winMsgEl.innerText = ''
-  player.bets.forEach((bet,idx)=>{
+  player.bets.forEach((bet,idx)=>{ //******** */
     bet.removeChip()
     addBetBoard(bet, idx)
   })
   renderRed()
 }
-function renderRed(){
+function renderRed(){ // Render the Red nums Red, 
   insideBets.forEach((el)=>{
     redNums.some((redEl)=>redEl==el.innerText)?el.style['color'] = '#9f2305':null
   })
-  outsideBets.find(el=>el.innerText=='Red').style['color'] = '#9f2305'
-  outsideBets.find(el=>el.innerText=='Black').style['color'] = 'Black'
+  outsideBets.find(el=>el.innerText=='Red').style['color'] = '#9f2305' // Render 'Red' Red
+  outsideBets.find(el=>el.innerText=='Black').style['color'] = 'Black' // Render 'Black' Black
 }
 // ....BETBOARD....
-function addBetBoard (bet, idx) {
+function addBetBoard (bet, idx) { // Create New element to display the bet
   bet.betID = idx
   let newBetCard = document.createElement('div')
   newBetCard.className = `bet-card`
@@ -222,15 +225,29 @@ function addBetBoard (bet, idx) {
   `<div id='bet-card-${idx}' class='bet'>
     <p>${bet.text}</p>
     <p>Bet $${bet.amount}</p>
+    <button class="bet-adj-btn" id="bet-adj-btn-${idx}">-</button>
+    <button class="bet-adj-btn" id="bet-adj-btn-${idx}">+</button>
     <button class='delete-btn' id='delete-btn-${idx}'>X</button>
   `
   betBoard.appendChild(newBetCard)
 }
-function deleteBetBoard(evt){
-  const idx = evt.target.id.replace('delete-btn-', '')
-  player.bets[idx].removeChip()
-  player.addBalance(player.bets[idx].amount) //Return the bet amount to the player
-  player.bets.splice(idx,1)
+
+function handleBetBoardClick(evt){
+  console.log(evt.target.className)
+  if (evt.target.className === 'delete-btn'){ // Handle Delete button
+    const idx = evt.target.id.replace('delete-btn-', '')
+    player.bets[idx].removeChip()
+    player.addBalance(player.bets[idx].amount) //Return the bet amount to the player
+    player.bets.splice(idx,1)
+  }else if (evt.target.className === 'bet-adj-btn'){
+    console.log('idididid')
+    const idx = evt.target.id.replace('bet-adj-btn-', '')
+    if (evt.targetinnerText=='+'){
+      console.log(player.bets[idx].updateAmount(true))
+    }else{
+      player.bets[idx].updateAmount(false)
+    }
+  }
   render()
 }
 
