@@ -10,7 +10,7 @@ This is a fun simplified version of the game of Roulette!
 ## How to Play!
 ## 1. Place Bets
 - ### Number Bet - ( 1-36, 0, 00 )
-    - Player selects directly which number they are betting the wheel will select.
+    - Player directly selects a number
     - Pays 35 to 1
 - ### Outside Bet
     - Player selects collections of numbers
@@ -25,17 +25,18 @@ This is a fun simplified version of the game of Roulette!
         - Black
 
 ## 2. Spin
-- Betting will close and the wheel will spin making it's selection.
-- The winning number will be displayed, as well as whether bets won or lost.
-- Player balance will be updated and a new round of betting will begin.
+
+- Betting closes and the wheel spins and lands on a number.
+- The winning number is displayed, as well as whether the player won or lost.
+- Player balance is updated and a new round of betting begins.
 
 ## Technologies
 - HTML, CSS, Javascript, Git
 
 ## Attributions
-- Favicon img
+- Favicon
     - https://www.flaticon.com/search?word=roulette
-- Roulette Wheel img
+- Roulette Wheel
     - freeimages.com
 - Background Pattern
     - https://heropatterns.com/
@@ -51,7 +52,7 @@ This is a fun simplified version of the game of Roulette!
 - More Betting Options
     - Line Bets
     - Sit out
-- Multi Seat Table
+- Multi-Seat Table
     - Play with Computer players
         - Different Strategies
     - Play Online with Other Players
